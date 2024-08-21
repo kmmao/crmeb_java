@@ -1,14 +1,14 @@
 <template>
 	<view>
 		<view class='sign-record'>
-		   <view class='list' v-for="(item,index) in signList" :key="index">
+		   <view class='list pad30' v-for="(item,index) in signList" :key="index">
 		      <view class='item'>
 		         <view class='data'>{{item.month}}</view>
-		         <view class='listn'>
+		         <view class='listn borRadius14'>
 		            <view class='itemn acea-row row-between-wrapper' v-for="(itemn,indexn) in item.list" :key="indexn">
 		               <view>
 		                  <view class='name line1'>{{itemn.title}}</view>
-		                  <view>{{itemn.addTime}}</view>
+		                  <view>{{itemn.createDay}}</view>
 		               </view>
 		               <view class='num font-color'>+{{itemn.number}}</view>
 		            </view>

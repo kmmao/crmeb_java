@@ -16,7 +16,7 @@
           :key="passwordType"
           v-model="formInline.password"
           :type="passwordType"
-          placeholder="请输入短信平台密码/token"
+          placeholder="密码"
           tabindex="2"
           auto-complete="off"
           prefix-icon="el-icon-lock"
@@ -43,11 +43,11 @@
             prefix-icon="el-icon-message"
             style="width: 90%"
           />
-          <el-button size="mini" :disabled=!this.canClick @click="cutDown">{{cutNUm}}</el-button>
+          <el-button size="mini" :disabled=!this.canClick @click="cutDown" v-hasPermi="['admin:pass:send:code']">{{cutNUm}}</el-button>
         </div>
       </el-form-item>
-      <el-button  :loading="loading" type="primary" style="width:100%;margin-bottom:20px;" @click="handleSubmit('formInline')">注册</el-button>
-      <el-button  type="primary" style="width:100%;margin-bottom:20px;" @click="changelogo">立即登录</el-button>
+      <el-button  :loading="loading" type="primary" style="width:100%;margin-bottom:20px;" @click="handleSubmit('formInline')" v-hasPermi="['admin:pass:register']">注册</el-button>
+      <el-button  type="primary" style="width:100%;margin-bottom:20px;" @click="changelogo" v-hasPermi="['admin:pass:login']">立即登录</el-button>
     </el-form>
   </div>
 </template>
@@ -167,7 +167,7 @@ export default {
   .captcha{
     display: flex;
     align-items: flex-start;
-    /deep/.el-form-item__content{
+    ::v-deep.el-form-item__content{
       width: 100%;
     }
   }
@@ -213,7 +213,7 @@ export default {
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
-    /deep/.svg-icon {
+    ::v-deep.svg-icon {
       vertical-align: 0.3em;
     }
   }

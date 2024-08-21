@@ -1,3 +1,13 @@
+// +----------------------------------------------------------------------
+// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016~2021 https://www.crmeb.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// +----------------------------------------------------------------------
+// | Author: CRMEB Team <admin@crmeb.com>
+// +----------------------------------------------------------------------
+
 import request from '@/utils/request'
 
 /**
@@ -12,6 +22,17 @@ export function marketingListApi(params) {
   })
 }
 
+/**
+ * 用户管理 优惠券列表
+ * @param pram
+ */
+export function marketingSendApi(params) {
+  return request({
+    url: '/admin/marketing/coupon/send/list',
+    method: 'get',
+    params
+  })
+}
 
 /**
  * 优惠券 详情
@@ -62,6 +83,18 @@ export function couponIssueStatusApi(params) {
 }
 
 /**
+ * 优惠券 删除
+ * @param pram
+ */
+export function couponDeleteApi(params) {
+  return request({
+    url: '/admin/marketing/coupon/delete',
+    method: 'post',
+    params
+  })
+}
+
+/**
  * 会员领取记录 列表
  * @param pram
  */
@@ -79,7 +112,7 @@ export function couponUserListApi(params) {
  */
 export function integralListApi(params, data) {
   return request({
-    url: '/admin/user/bill/list',
+    url: '/admin/user/integral/list',
     method: 'post',
     params,
     data
@@ -437,5 +470,111 @@ export function exportcombiantionApi(params) {
     url: `/admin/export/excel/combiantion/product`,
     method: 'get',
     params
+  })
+}
+
+/**
+ * 视频号 草稿列表
+ */
+export function draftListApi(params) {
+  return request({
+    url: `/admin/pay/component/product/draft/list`,
+    method: 'get',
+    params
+  })
+}
+
+
+/**
+ * 视频号 商品列表
+ */
+export function videoProductListApi(params) {
+  return request({
+    url: `/admin/pay/component/product/list`,
+    method: 'get',
+    params
+  })
+}
+
+/**
+ * 视频号 类目
+ */
+export function catListApi(params) {
+  return request({
+    url: `/admin/pay/component/cat/get/list`,
+    method: 'get'
+  })
+}
+
+/**
+ * 视频号 添加
+ */
+export function videoAddApi(data) {
+  return request({
+    url: `/admin/pay/component/product/add`,
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 视频号 编辑
+ */
+export function videoUpdateApi(data) {
+  return request({
+    url: `/admin/pay/component/product/update`,
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 视频号 上架
+ */
+export function videoUpApi(proId) {
+  return request({
+    url: `/admin/pay/component/product/listing/${proId}`,
+    method: 'post'
+  })
+}
+
+/**
+ * 视频号 下架
+ */
+export function videoDownApi(proId) {
+  return request({
+    url: `/admin/pay/component/product/delisting/${proId}`,
+    method: 'post'
+  })
+}
+
+/**
+ * 视频号 删除
+ */
+export function videoDelApi(proId) {
+  return request({
+    url: `/admin/pay/component/product/delete/${proId}`,
+    method: 'post'
+  })
+}
+
+/**
+ * 视频号 草稿商品详情
+ */
+export function draftInfoApi(id) {
+  return request({
+    url: `/admin/pay/component/product/draft/get/${id}`,
+    method: 'get'
+  })
+}
+
+/**
+ * 视频号 草稿商品编辑
+ */
+export function draftUpdateApi(data) {
+  return request({
+    url: `/admin/pay/component/product/update`,
+    method: 'post',
+    data
   })
 }

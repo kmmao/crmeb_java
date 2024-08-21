@@ -47,7 +47,7 @@
           <div v-if="checkedMenuId !== null">
             <div class="dividerTitle acea-row row-between row-bottom">
               <span class="title">菜单信息</span>
-              <el-button slot="extra" size="small" type="danger" @click="deltMenus">删除</el-button>
+              <el-button slot="extra" size="small" type="danger" @click="deltMenus" v-hasPermi="['admin:wechat:menu:public:delete']">删除</el-button>
               <el-divider />
             </div>
             <el-col :span="24" class="userAlert">
@@ -78,11 +78,11 @@
                     <el-form-item label="appid" prop="appid">
                       <el-input v-model="formValidate.appid" placeholder="请填写appid" class="spwidth" />
                     </el-form-item>
-                    <el-form-item label="备用网页" prop="pagepath">
-                      <el-input v-model="formValidate.pagepath" placeholder="请填写备用网页" class="spwidth" />
+                    <el-form-item label="备用网页" prop="url">
+                      <el-input v-model="formValidate.url" placeholder="请填写备用网页" class="spwidth" />
                     </el-form-item>
-                    <el-form-item label="小程序路径" prop="url">
-                      <el-input v-model="formValidate.url" placeholder="请填写小程序路径" class="spwidth" />
+                    <el-form-item label="小程序路径" prop="pagepath">
+                      <el-input v-model="formValidate.pagepath" placeholder="请填写小程序路径" class="spwidth" />
                     </el-form-item>
                   </div>
                   <div v-if="formValidate.type === 'view'">
@@ -95,7 +95,10 @@
             </el-col>
           </div>
           <el-col v-if="isTrue" :span="24">
-            <el-button size="mini" type="primary" style="display: block;margin: 10px auto;" @click="submenus('formValidate')">保存并发布</el-button>
+            <el-button size="mini" type="primary" 
+            style="display: block;margin: 10px auto;"
+             @click="submenus('formValidate')"
+             v-hasPermi="['admin:wechat:menu:public:create']">保存并发布</el-button>
           </el-col>
         </el-col>
       </el-row>
@@ -105,6 +108,7 @@
 
 <script>
   import { wechatMenuApi, wechatMenuAddApi } from '@/api/wxApi'
+  import {Debounce} from '@/utils/validate'
   export default {
     name: 'WechatMenus',
     data() {
@@ -144,7 +148,7 @@
             { required: true, message: '请填写appid', trigger: 'blur' }
           ],
           pagepath: [
-            { required: true, message: '请填写备用网页', trigger: 'blur' }
+            { required: true, message: '请填写小程序路径', trigger: 'blur' }
           ],
           url: [
             { required: true, message: '请填写跳转地址', trigger: 'blur' }
@@ -191,7 +195,7 @@
         })
       },
       // 点击保存提交
-      submenus(name) {
+      submenus:Debounce(function(name) {
         if (this.isTrue && !this.checkedMenuId && this.checkedMenuId !== 0) {
           this.putData()
         } else {
@@ -203,7 +207,7 @@
             }
           })
         }
-      },
+      }),
       // 新增data
       putData() {
         const data = {
@@ -308,7 +312,7 @@
 
 <style scoped lang="scss">
   .menuBox{
-    /deep/.el-button{
+    ::v-deep.el-button{
       border: none;
       background: bottom;
       padding: 0 !important;

@@ -8,15 +8,12 @@ import Cache from "@/utils/cache";
 export function silenceBindingSpread() {
 
 
-	//#ifdef H5
+	//#ifdef H5 || APP 
 	let puid = Cache.get('spread');
 	//#endif
 
 	//#ifdef MP
 	let puid = getApp().globalData.spid;
-	if (!puid) {
-		puid = getApp().globalData.code;
-	}
 	//#endif
 
 	puid = parseInt(puid);

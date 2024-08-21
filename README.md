@@ -1,176 +1,202 @@
-<h1 align="center"> CRMEB客户管理+电商营销系统Java版</h1> 
-<p align="center">
+ 
+<div align="center" >
+    <img src="https://images.gitee.com/uploads/images/2021/1109/164354_0aafe3d2_892944.gif" />
+</div>
+<div align="center">
+
+# CRMEB开源商城系统Java版
+
+</div>
+<div align="center" >
     <a href="http://www.crmeb.com">
-    </p>
-<p align="center">    
-    <b>如果对您有帮助，您可以点右上角 "Star" ❤️  支持一下 谢谢！</b>
-</p>
+        <img src="https://img.shields.io/badge/License-GPL3.0-green.svg?style=flat" />
+    </a>
+    <a href='https://gitee.com/ZhongBangKeJi/crmeb_java/members'>
+        <img src='https://gitee.com/ZhongBangKeJi/crmeb_java/badge/fork.svg?theme=dark' alt='fork'></img>
+    </a>
+   <a href='https://gitee.com/ZhongBangKeJi/crmeb_java/stargazers'>
+        <img src='https://gitee.com/ZhongBangKeJi/crmeb_java/badge/star.svg?theme=dark' alt='star'></img>
+    </a>
+</div>
 
-## 项目介绍
+<div align="center">
+
+[官网](https://www.crmeb.com/) |
+[在线体验](https://admin.java.crmeb.net) |
+[帮助文档](https://doc.crmeb.com/java/crmeb_java) |
+[技术社区](https://www.crmeb.com/ask/)
+
+[comment]: <> ([宽屏预览]&#40;https://gitee.com/ZhongBangKeJi/crmeb_java/blob/master/README.md&#41;)
+
+</div>
+<div align="center" >
+    <a href="https://gitee.com/ZhongBangKeJi/crmeb_java/blob/master/README.md">宽 屏 预 览</a>
+</div>
+
+<div align="center">
+    如果对您有帮助，您可以点右上角 "Star" ❤️ 支持一下 谢谢！
+</div>
+
+---
+
+### 📖 简介：
+
+CRMEB 开源商城系统Java版，基于Java+Vue+Uni-app开发，在微信公众号、小程序、H5移动端都能使用，代码全开源无加密，独立部署，二开很方便，还支持免费商用，能满足企业新零售、分销推广、拼团、砍价、秒杀等多种经营需求，自用、做二开项目都很合适。
+
+CRMEB开源商城PHP：https://gitee.com/ZhongBangKeJi/CRMEB
+
+
+系统代码全开源无加密，独立部署、二开方便，适用于企业新零售、分销、拼团、砍价，秒杀等各种业务需求。
+
+---
+
+### 💡 系统亮点：
+>1.SpringBoot 框架开发业界主流。  </br>
+>2.【前端】Web PC 管理端 Vue + Element UI。<br>
+>3.【前端】移动端使用 Uni-app 框架，前后端分离开发。<br>
+>4.标准RESTful 接口、标准数据传输，逻辑层次更明确，更多的提高api复用。<br>
+>5.支持Redis队列，降低流量高峰，解除耦合，高可用。<br>
+>6.数据导出，方便个性化分析。<br>
+>7.数据统计分析,使用ECharts图表统计，实现用户、产品、订单、资金等统计分析。<br>
+>8.Spring Security 权限管理，后台多种角色，多重身份权限管理，权限可以控制到按钮级别的操作。<br>
+>9.Vue表单生成控件，拖拽配置表单，减少前端重复表单工作量，提高前端开发效率。<br>
+
+---
+
+### 💻 运行环境及框架：
+~~~
+1.	移动端uniapp开发框架 可生成H5 公众号 微信小程序
+2.	WEB Pc 管理后台使用Vue + Element UI 开发 兼容主流浏览器 ie11+
+3.	后台服务 Java SpringBoot + Mybatis-plus + Mysql + redis
+4.	运行环境 linux和windows等都支持,只要有Java环境和对应的数据库 redis
+5.	运行条件 Java 1.8 Mysql5.7
+~~~
+---
+
+### 🔧 Java项目框架 和 WEB PC 项目运行环境
+~~~
+1. SpringBoot 2.2.6.RELEASE
+2. Maven 3.6.1
+3. swagger-bootstrap-ui 1.0
+4. Mybatis Plus 3.3.1
+5. npm 6
+6. node 14
+7. vue 2.x
+8. element ui 2.13
 ~~~
 
-CRMEB 是西安众邦网络科技有限公司旗下品牌，众邦科技8年专注电商的技术沉淀和行业积累，
-专业打造行业领先，功能强大，易用性强，扩展性强产品，CRMEB现有CRMEB单商户系统(Java版本)、
-CRMEB Pro系统、CRMEB 多商户系统、知识付费系统等系统产品。
+---
 
-JAVA版商城系统是基于Java(SpringBoot) + Vue(Element UI) + UniApp开发的
-一套新零售移动电商系统，CRMEB系统就是集客户关系管理 + 营销电商系统，
-能够快速积累客户、会员数据分析、智能转化客户、有效提高销售、会员维护、
-网络营销的一款企业应用，更适合企业二次开发。
-
-~~~~
-
-![](https://gitee.com/stivepeim/img4mk/raw/master/20210205091003.png)
-
-## 导航栏目
-
- [![帮助手册](https://img.shields.io/badge/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C-Java%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C-orange)](http://help.crmeb.net/crmeb_java/1748037t)
- [![论坛地址](https://img.shields.io/badge/CRMEB-Java%E8%AE%BA%E5%9D%9B-green)](http://bbs.crmeb.net)
-[![官网地址](https://img.shields.io/badge/CRMEB-%E5%AE%98%E7%BD%91-brightgreen)](https://www.crmeb.com)
- [![服务器](https://img.shields.io/badge/Server-%E6%9C%8D%E5%8A%A1%E5%99%A8-yellowgreen)](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=dligum2z)
- [![授权价格](https://img.shields.io/badge/authorize-%E6%8E%88%E6%9D%83-red)](http://crmeb.com/web/auth/apply)
-  [![GitHub地址](https://img.shields.io/badge/gitHub-gitHub-lightgrey)](https://github.com/crmeb/crmeb_java)
-  [![码云地址](https://img.shields.io/badge/gitee-%E7%A0%81%E4%BA%91-blue)](https://gitee.com/ZhongBangKeJi/crmeb_java)
-
-## 预览
-![java预览二维码](https://gitee.com/stivepeim/img4mk/raw/master/20210203094719.jpg)
-
-移动端：[https://java.crmeb.net](https://java.crmeb.net)
-
-后台：[https://admin.java.crmeb.net](https://admin.java.crmeb.net)   
-
-账号密码：后台账号 demo  密码 crmeb.com
-
-购买商业版： [http://crmeb.com/web/index/java](http://crmeb.com/web/index/java)
-
-
-## 主要特点
+### 🧭 项目代码包介绍
 ~~~
-
-1:有详细的代码注释，有完整系统手册。
-2:基于 SpringBoot 框架开发业界主流。
-3:【前端】Web PC 管理端 vue + element UI。 
-4:【前端】移动端使用 UniApp 框架，前后端分离开发。
-5:标准RESTful 接口、标准数据传输，逻辑层次更明确，更多的提高api复用。
-6:支持Redis队列，降低流量高峰，解除耦合，高可用。
-7:无缝事件机制，行为扩展更方便，方便二次开发。
-8:数据导出，方便个性化分析。
-9:数据统计分析,使用ECharts图表统计，实现用户、产品、订单、资金等统计分析。
-10:权限管理，后台多种角色，多重身份权限管理，权限可以控制到按钮级别的操作。
-11:Vue表单生成控件，拖拽配置表单，减少前端重复表单工作量，提高前端开发效率。
-
+1. admin     WEB程序         PC端管理端 VUE + ElementUi
+2. app       移动商城         UniApp标准开发(H5 + 微信小程序)
+3. crmeb     Api            Java SpringBoot + mybatisPlus
+4. 接口文档   Api对应的接口文档也可以部署项目后查看
 ~~~
-
-## 移动端预览
-![](https://gitee.com/stivepeim/img4mk/raw/master/20210204184108.jpg)
-![](https://gitee.com/stivepeim/img4mk/raw/master/20210204184109.jpg)
-![](https://gitee.com/stivepeim/img4mk/raw/master/20210204184110.jpg)
-
-## 功能图预览
-![项目基本功能介绍](https://gitee.com/stivepeim/img4mk/raw/master/20201225180349.jpeg)
-
-## WEB PC 管理端预览
-![控制台](https://gitee.com/stivepeim/img4mk/raw/master/20210202174310.png)
-![商品管理](https://gitee.com/stivepeim/img4mk/raw/master/20210202174420.png)
-![订单管理](https://gitee.com/stivepeim/img4mk/raw/master/20210202174559.png)
-![复制第三方平台商品](https://gitee.com/stivepeim/img4mk/raw/master/20210202175224.png)
-![营销功能](https://gitee.com/stivepeim/img4mk/raw/master/20210202175547.png)
-![自定义表单组件](https://gitee.com/stivepeim/img4mk/raw/master/20210202175013.png)
-<!-- ![商品规格](https://images.gitee.com/uploads/images/2020/0824/154034_745ba403_2012975.png "屏幕截图.png")
-![商品分类](https://images.gitee.com/uploads/images/2020/0824/154123_b4b0adf8_2012975.png "屏幕截图.png")
-![订单管理](https://images.gitee.com/uploads/images/2020/0824/154210_e4c821ed_2012975.png "屏幕截图.png")
-![用户管理](https://images.gitee.com/uploads/images/2020/0824/154353_c5e5f618_2012975.png "屏幕截图.png")
-![用户等级](https://images.gitee.com/uploads/images/2020/0824/154427_77f4e80d_2012975.png "屏幕截图.png")
-![文章管理](https://images.gitee.com/uploads/images/2020/0824/154443_cd6c6a90_2012975.png "屏幕截图.png")
-![微信](https://images.gitee.com/uploads/images/2020/0824/154515_9db27282_2012975.png "屏幕截图.png")
-![优惠券](https://images.gitee.com/uploads/images/2020/0824/154536_8d1d2db2_2012975.png "屏幕截图.png")
-![分销](https://images.gitee.com/uploads/images/2020/0824/154553_0b9f66a4_2012975.png "屏幕截图.png")
-![身份](https://images.gitee.com/uploads/images/2020/0824/154609_e9616963_2012975.png "屏幕截图.png")
-![权限](https://images.gitee.com/uploads/images/2020/0824/154647_f7fb8c69_2012975.png "屏幕截图.png")
-![账号](https://images.gitee.com/uploads/images/2020/0824/154709_db94d36a_2012975.png "屏幕截图.png")
-![系统设置](https://images.gitee.com/uploads/images/2020/0824/154727_fc2e4f49_2012975.png "屏幕截图.png")
-![短信](https://images.gitee.com/uploads/images/2020/0824/154752_5552a5d0_2012975.png "屏幕截图.png")
-![系统设置分类](https://images.gitee.com/uploads/images/2020/0824/154816_db8139fd_2012975.png "屏幕截图.png") -->
-
-
-
-## 项目源码
-| 平台| 源码地址|
-|--- |--- |
-|gitHub| https://github.com/crmeb/crmeb_java|
-|gitee|https://gitee.com/ZhongBangKeJi/crmeb_java|
-
-![](https://gitee.com/stivepeim/img4mk/raw/master/20210205091002.jpeg)
-
-## 运行环境及框架
-~~~
-
-Java项目运行环境
-1.Java Jdk1.8
-2.Redis 5+
-3.Mysql 5.7+
-4.Nginx
-
-Java项目框架
-1.SpringBoot 2.2.6.RELEASE
-2.Maven 3.6.1
-3.swagger-bootstrap-ui 1.0
-4.Mybatis Plus 3.3.1
-
-WEB PC 项目运行环境
-1.npm 6
-2.node 14
-3.vue 2.x
-4.element ui 2.13
 
 移动端 uniapp 开发 使用 HbuilderX 开发
-~~~
 
-## 项目代码包介绍
-~~~
+---
 
-1:admin     WEB程序         PC端管理端 VUE + ElementUi
-2:app       移动商城         UniApp标准开发(H5 + 微信小程序)
-3:crmeb     Api            Java SpringBoot + mybatisPlus ...
-4:接口文档   Api对应的接口文档也可以部署项目后查看  
+[![](crmeb/crmebimage/crmebimage/demoimage/gitee-广告_java多商户.jpg)](https://www.crmeb.com/ask/thread/46123)
 
-~~~
 
-## 素材说明
-建议使用自己的素材文件，我们提供基础浏览素材 链接:https://pan.baidu.com/s/1i5TOV2fP6hkO0OHWgyrY8A 密码:m8de
+### 🎬 系统演示：
+![](crmeb/crmebimage/crmebimage/demoimage/c1.jpg)
+移动端：https://java.crmeb.net<br>
+WEBPC管理端：https://admin.java.crmeb.net<br>
+账号密码： demo/crmeb.com<br>
 
-## 版本更新日志
-http://bbs.crmeb.net/thread-5725-1-1.html
+自己搭建演示账号
+移动端 18292417675 / crmeb@123456
+管理端 admin / 123456
 
-## 内推荐项目
-~~~
+[想了解CRMEB开源商城系统Java版整体框架，你可以戳这里快速掌握！](https://doc.crmeb.com/java/crmeb_java/2049)
 
-CRMEB知识付费项目：https://gitee.com/ZhongBangKeJi/crmeb_zzff_class
-CRMEB打通版：https://gitee.com/ZhongBangKeJi/CRMEB
+---
 
-~~~
-## 反馈交流
-[CRMEB JAVA 技术交流QQ群 1群](<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=XJ79nw1CVADxGTl1Ju0iMxzq9HMIhTR0&jump_from=webapi">点击加群 893839288</a>)
+### 📃 系统资料
+需要系统文档的朋友看过来，安装文档、产品介绍、技术文档...你想要的我都有！
+[https://doc.crmeb.com/java/crmeb_java](https://doc.crmeb.com/java/crmeb_java)
 
-使用中遇到bug 或者问题可以在gitee 上提 [Issues](https://gitee.com/ZhongBangKeJi/crmeb_java/issues)
 
-如果直接点击加群无反应可复制QQ号码手动加入
+要安装系统，跟着视频更顺畅！CRMEB开源商城系统Java版安装视频，给你奉上！
+视频教程 B站视频教程 持续更新中 [点击观看 💻🖥️](https://www.bilibili.com/video/BV1bP4y1n76P/?vd_source=40854aeda5bba4b8766afd5a99623b16)
 
-## 开源版使用须知
-~~~
-1.允许用于个人学习、毕业设计、教学案例、公益事业;
-2.如果商用必须保留版权信息，如果需要去版权请联系客服;
-3.禁止将本项目的代码和资源进行任何形式的出售，产生的一切任何后果责任由侵权者自负。
-~~~
+---
 
-## 联系客服
+### 💟 UI界面
+#### 核心功能
+![](crmeb/crmebimage/crmebimage/demoimage/javaop2.jpg)
 
-![联系客服](https://gitee.com/stivepeim/img4mk/raw/master/20210109110102.jpg)
 
-## 版权信息
-本项目包含的第三方源码和二进制文件之版权信息另行标注。
-版权所有Copyright © 2017-2021 by CRMEB (http://www.crmeb.com)
 
-All rights reserved。
+### 📱 移动端预览
+![](crmeb/crmebimage/crmebimage/demoimage/03-mobile-01.png)
+![](crmeb/crmebimage/crmebimage/demoimage/04-mobile-02.png)
+![](crmeb/crmebimage/crmebimage/demoimage/05-mobile-03.png)
 
-CRMEB® 商标和著作权所有者为西安众邦网络科技有限公司。
+### WEB PC管理端预览
+![](crmeb/crmebimage/crmebimage/demoimage/07-pc-01.png)
+![](crmeb/crmebimage/crmebimage/demoimage/08-pc-02.png)
+![](crmeb/crmebimage/crmebimage/demoimage/09-pc-03.png)
+![](crmeb/crmebimage/crmebimage/demoimage/10-pc-04.png)
+![](crmeb/crmebimage/crmebimage/demoimage/11-pc-05.png)
+![](crmeb/crmebimage/crmebimage/demoimage/12-pc-06.png)
+
+![](crmeb/crmebimage/crmebimage/demoimage/13yemiandesiner-min.gif)
+![](crmeb/crmebimage/crmebimage/demoimage/14yijianhuanse-min.gif)
+![](crmeb/crmebimage/crmebimage/demoimage/15webPCadmin-min.gif)
+
+
+---
+### 📲 CRMEB开源技术交流群
+扫码进群可领取开源版接口文档、产品功能清单、高清UI设计图、思维脑图！
+![](crmeb/crmebimage/crmebimage/demoimage/wellcomJavaGroup.jpg)
+
+
+#### 📈 技术社区
+找方法、提bug、看官方消息、拿活跃大奖！
+https://www.crmeb.com/ask/thread/list/152
+
+
+#### 📞 技术交流
+跟着官方，不迷路！欢迎扫码加入CRMEB 开源项目群，一手消息及资源，尽在掌握！<br>
+CRMEB JAVA 技术交流QQ群 1群 🈵️<br>
+CRMEB JAVA 技术交流QQ群 2群 🈵️<br>
+CRMEB JAVA 技术交流QQ群 3群 640230510 🈵️ 群已满<br>
+<!-- [CRMEB开源商城系统开发QQ频道已开启，点击加入一起交流学习](https://pd.qq.com/s/1v2yb4e0p)<br>
+![](crmeb/crmebimage/crmebimage/demoimage/qqcus.jpg) -->
+使用中遇到bug 或者问题可以在gitee 上提 Issues
+
+---
+
+### 💌 特别鸣谢
+核心开发团队
+
+产品: 木子刀客
+
+技术: ❄指缝de阳光, 怪兽的猫, 乡关何处
+
+团队打杂: 大粽子
+
+UI: 被子横盖显得高🐰
+
+测试: 请叫我绵绵🐏, 夏天
+
+---
+
+### 🔔 使用须知
+1.允许用于个人学习、毕业设计、教学案例、公益事业、商业使用;<br>
+2.如果商用必须保留版权信息，请自觉遵守;<br>
+3.禁止将本项目的代码和资源进行任何形式的出售，产生的一切任何后果责任由侵权者自负。<br>
+
+---
+### 🪪 版权信息
+本项目包含的第三方源码和二进制文件之版权信息另行标注。<br>
+版权所有Copyright © 2017-2022 by CRMEB (https://www.crmeb.com)<br>
+All rights reserved。<br>
+CRMEB® 商标和著作权所有者为西安众邦网络科技有限公司。<br>
+
+---

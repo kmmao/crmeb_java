@@ -1,31 +1,33 @@
 <template>
   <div class="divBox">
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
+      <div class="clearfix">
         <div class="container">
-          <el-form size="small" label-width="100px">
+          <el-form size="small" label-width="100px" inline>
             <el-form-item label="时间选择：" class="width100">
               <el-radio-group v-model="tableFrom.dateLimit" type="button" class="mr20" size="small" @change="selectChange(tableFrom.dateLimit)">
                 <el-radio-button v-for="(item,i) in fromList.fromTxt" :key="i" :label="item.val">{{ item.text }}</el-radio-button>
               </el-radio-group>
               <el-date-picker v-model="timeVal" value-format="yyyy-MM-dd" format="yyyy-MM-dd" size="small" type="daterange" placement="bottom-end" placeholder="自定义时间" style="width: 250px;" @change="onchangeTime" />
             </el-form-item>
-            <!--<el-form-item label="是否支付：">-->
-              <!--<el-radio-group v-model="tableFrom.paid" type="button" size="small" @change="getList(1)">-->
-                <!--<el-radio-button label="">全部</el-radio-button>-->
-                <!--<el-radio-button label="1">已支付</el-radio-button>-->
-                <!--<el-radio-button label="0">未支付</el-radio-button>-->
-              <!--</el-radio-group>-->
-            <!--</el-form-item>-->
-            <el-form-item label="关键字：" class="width100">
-              <el-input v-model="tableFrom.keywords" placeholder="微信昵称/姓名/订单号" class="selWidth" size="small" clearable>
+            <el-form-item label="用户id：">
+              <el-input v-model="tableFrom.uid" placeholder="用户id" class="selWidth" size="small" clearable>
+                <el-button slot="append" icon="el-icon-search" size="small" @click="getList(1)" />
+              </el-input>
+            </el-form-item>
+            <el-form-item label="订单号：">
+              <el-input v-model="tableFrom.keywords" placeholder="订单号" class="selWidth" size="small" clearable>
                 <el-button slot="append" icon="el-icon-search" size="small" @click="getList(1)" />
               </el-input>
             </el-form-item>
           </el-form>
         </div>
-        <cards-data :card-lists="cardLists" />
       </div>
+    </el-card>
+    <div class="mt20">
+      <cards-data :card-lists="cardLists" v-if="checkPermi(['admin:recharge:balance'])" />
+    </div>
+    <el-card class="box-card">
       <el-table
         v-loading="listLoading"
         :data="tableData.data"
@@ -35,8 +37,8 @@
         highlight-current-row
       >
         <el-table-column
-          prop="id"
-          label="ID"
+          prop="uid"
+          label="UID"
           width="60"
         />
         <el-table-column
@@ -76,14 +78,6 @@
           prop="givePrice"
           :sort-method="(a,b)=>{return a.givePrice - b.givePrice}"
         />
-        <!--<el-table-column-->
-          <!--label="是否支付"-->
-          <!--min-width="80"-->
-        <!--&gt;-->
-          <!--<template slot-scope="scope">-->
-            <!--<span class="spBlock">{{ scope.row.paid | payStatusFilter }}</span>-->
-          <!--</template>-->
-        <!--</el-table-column>-->
         <el-table-column
           label="充值类型"
           min-width="80"
@@ -100,12 +94,6 @@
             <span class="spBlock">{{ scope.row.payTime || '无' }}</span>
           </template>
         </el-table-column>
-        <!--<el-table-column label="操作" min-width="120" fixed="right" align="center">-->
-          <!--<template slot-scope="scope">-->
-            <!--<el-button type="text" size="small" @click="handleDelete(scope.row)" v-if="!scope.row.paid">删除</el-button>-->
-            <!--<el-button type="text" size="small" @click="handleRefund(scope.row)" v-if="parseFloat(scope.row.refundPrice) <= 0 && scope.row.paid">退款</el-button>-->
-          <!--</template>-->
-        <!--</el-table-column>-->
       </el-table>
       <div class="block">
         <el-pagination
@@ -141,6 +129,7 @@
   import { topUpLogListApi, balanceApi, topUpLogDeleteApi, refundApi } from '@/api/financial'
   import cardsData from '@/components/cards/index'
   import zbParser from '@/components/FormGenerator/components/parser/ZBParser'
+  import { checkPermi } from "@/utils/permission"; // 权限判断函数
   export default {
     name: 'AccountsBill',
     components: { cardsData, zbParser },
@@ -156,7 +145,8 @@
         },
         listLoading: true,
         tableFrom: {
-          paid: '',
+          uid: '',
+         // paid: '',
           dateLimit: '',
           keywords: '',
           page: 1,
@@ -171,6 +161,7 @@
       this.getStatistics()
     },
     methods: {
+      checkPermi,
       resetForm(formValue) {
         this.handleClose();
       },
@@ -240,10 +231,9 @@
         balanceApi().then(res => {
           const stat = res
           this.cardLists = [
-            { name: '充值总金额', count: stat.total, icon: 'el-icon-s-goods' },
-            { name: '充值退款金额', count: stat.refund, icon: 'el-icon-s-order' },
-            { name: '小程序充值金额', count: stat.routine, icon: 'el-icon-s-cooperation' },
-            { name: '公众号充值金额', count: stat.weChat, icon: 'el-icon-s-finance' }
+            { name: '充值总金额', count: stat.total, color:'#1890FF',class:'one',icon:'iconchongzhijine' },
+            { name: '小程序充值金额', count: stat.routine, color:'#A277FF',class:'two',icon:'iconweixinzhifujine' },
+            { name: '公众号充值金额', count: stat.weChat, color:'#EF9C20',class:'three',icon:'iconyuezhifujine1' }
           ]
         })
       }

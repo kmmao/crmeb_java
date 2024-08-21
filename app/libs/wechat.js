@@ -112,6 +112,21 @@ class AuthWechat {
 		});
 	} 
 	
+	// 使用微信内置地图查看位置接口；
+	seeLocation(config){
+		return new Promise((resolve, reject) => {
+			this.wechat().then(wx => {
+				this.toPromise(wx.openLocation, config).then(res => {
+					resolve(res);
+				}).catch(err => {
+					reject(err);
+				});
+			}).catch(err => {
+				reject(err);
+			})
+		});
+	}
+	
 	/**
 	 * 微信支付
 	 * @param {Object} config
@@ -196,24 +211,16 @@ class AuthWechat {
 	 */
 	auth(code) {
 		return new Promise((resolve, reject) => {
-			let loginType = Cache.get(LOGINTYPE);
-			wechatAuth(code, Cache.get("spread"), loginType)
+			wechatAuth(code, Cache.get("spread"))
 				.then(({
 					data
 				}) => {
-					// let expires_time = data.expires_time.substring(0, 19);
-					// expires_time = expires_time.replace(/-/g, '/');
-					// expires_time = new Date(expires_time).getTime();
-					// let newTime = Math.round(new Date() / 1000);
-					store.commit("LOGIN", {
-						token: data.token
-						// time: expires_time - newTime
-					});
+					resolve(data);
 					Cache.set(WX_AUTH, code);
 					Cache.clear(STATE_KEY);
 					// Cache.clear('spread');
 					loginType && Cache.clear(LOGINTYPE);
-					resolve(data);
+					
 				})
 				.catch(reject);
 		});
@@ -245,11 +252,12 @@ class AuthWechat {
 					("" + Math.random()).split(".")[1] + "authorizestate"
 				);
 				uni.setStorageSync(STATE_KEY, state);
-				if(snsapiBase==='snsapi_base'){
-					return `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_base&state=${state}#wechat_redirect`;
-				}else{
-					return `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
-				}
+				return `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
+				// if(snsapiBase==='snsapi_base'){
+				// 	return `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_base&state=${state}#wechat_redirect`;
+				// }else{
+				// 	return `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
+				// }
     }
 	
 	/**

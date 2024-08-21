@@ -1,11 +1,14 @@
 <template>
 	<view>
+		<!-- #ifdef APP-->
+		<view class='status_1'></view>
+		<!-- #endif -->
+		<view class='line'>
+			<image src='../../../static/images/line.jpg' v-if="addressList.length"></image>
+		</view>
 		<view class='address-management' :class='addressList.length < 1 && page > 1 ? "fff":""'>
-			<view class='line'>
-				<image src='../../../static/images/line.jpg' v-if="addressList.length"></image>
-			</view>
 			<radio-group class="radio-group" @change="radioChange" v-if="addressList.length">
-				<view class='item' v-for="(item,index) in addressList" :key="index">
+				<view class='item borRadius14' v-for="(item,index) in addressList" :key="index">
 					<view class='address' @click='goOrder(item.id)'>
 						<view class='consignee'>收货人：{{item.realName}}<text class='phone'>{{item.phone}}</text></view>
 						<view>收货地址：{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</view>
@@ -37,19 +40,23 @@
 				</view>
 			</view>
 			<view style='height:120rpx;'></view>
-			<view class='footer acea-row row-between-wrapper'>
-				<!-- #ifdef APP-PLUS -->
-				<view class='addressBnt bg-color on' @click='addAddress'><text class='iconfont icon-tianjiadizhi'></text>添加新地址</view>
-				<!-- #endif -->
-				<!-- #ifdef MP-->
-				<view class='addressBnt bg-color' @click='addAddress'><text class='iconfont icon-tianjiadizhi'></text>添加新地址</view>
-				<view class='addressBnt wxbnt' @click='getWxAddress'><text class='iconfont icon-weixin2'></text>导入微信地址</view>
-				<!-- #endif -->
-				<!-- #ifdef H5-->
-				<view class='addressBnt bg-color' :class="this.$wechat.isWeixin()?'':'on'" @click='addAddress'><text class='iconfont icon-tianjiadizhi'></text>添加新地址</view>
-				<view class='addressBnt wxbnt' @click='getAddress' v-if="this.$wechat.isWeixin()"><text class='iconfont icon-weixin2'></text>导入微信地址</view>
-				<!-- #endif -->
-			</view>
+		</view>
+		<view class='footer acea-row row-between-wrapper'>
+			<!-- #ifdef MP-->
+			<view class='addressBnt bg-color' @click='addAddress'><text class='iconfont icon-tianjiadizhi'></text>添加新地址</view>
+			<view class='addressBnt wxbnt' @click='getWxAddress'><text class='iconfont icon-weixin2'></text>导入微信地址</view>
+			<!-- #endif -->
+			<!-- #ifdef H5-->
+			
+			<view class='addressBnt bg-color' :class="this.$wechat.isWeixin()?'':'on'" @click='addAddress'><text class='iconfont icon-tianjiadizhi'></text>添加新地址</view>
+			<view v-if="this.$wechat.isWeixin()" class='addressBnt wxbnt' @click='getAddress'><text class='iconfont icon-weixin2'></text>导入微信地址</view>
+			<!-- #endif -->
+			
+			
+			<!-- #ifdef APP-->
+			<view class='addressBnt on bg-color' @click='addAddress'><text class='iconfont icon-tianjiadizhi'></text>添加新地址</view>
+			<!-- #endif -->
+			
 		</view>
 		<!-- #ifdef MP -->
 		<!-- <authorize @onLoadFun="onLoadFun" :isAuto="isAuto" :isShowAuth="isShowAuth" @authColse="authColse"></authorize> -->
@@ -114,12 +121,12 @@
 		},
 		onLoad(options) {
 			if (this.isLogin) {
-				this.cartId = options.cartId || '';
-				this.pinkId = options.pinkId || 0;
-				this.couponId = options.couponId || 0;
-				this.secKill = options.secKill || false;
-				this.combination = options.combination || false;
-				this.bargain = options.bargain || false;
+				this.preOrderNo = options.preOrderNo || 0;
+				// this.pinkId = options.pinkId || 0;
+				// this.couponId = options.couponId || 0;
+				// this.secKill = options.secKill || false;
+				// this.combination = options.combination || false;
+				// this.bargain = options.bargain || false;
 				this.getAddressList(true);
 			} else {
 				toLogin();
@@ -347,23 +354,13 @@
 				this.pinkId = '';
 				this.couponId = '';
 				uni.navigateTo({
-					url: '/pages/users/user_address/index?cartId=' + cartId + '&pinkId=' + pinkId + '&couponId=' + couponId + '&secKill=' + this.secKill + '&combination=' + this.combination + '&bargain=' + this.bargain
+					url: '/pages/users/user_address/index?preOrderNo=' + this.preOrderNo
 				})
 			},
 			goOrder: function(id) {
-				let cartId = '';
-				let pinkId = '';
-				let couponId = '';
-				if (this.cartId && id) {
-					cartId = this.cartId;
-					pinkId = this.pinkId;
-					couponId = this.couponId;
-					this.cartId = '';
-					this.pinkId = '';
-					this.couponId = '';
+				if(this.preOrderNo){
 					uni.redirectTo({
-						url: '/pages/users/order_confirm/index?is_address=1&cartId=' + cartId + '&addressId=' + id + '&pinkId=' +
-							pinkId + '&couponId=' + couponId + '&secKill=' + this.secKill + '&combination=' + this.combination + '&bargain=' + this.bargain
+						url: '/pages/users/order_confirm/index?is_address=1&preOrderNo=' + this.preOrderNo + '&addressId=' +  id 
 					})
 				}
 			}
@@ -374,31 +371,32 @@
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
+	.address-management{
+		padding: 20rpx 30rpx;
+	}
 	.address-management.fff {
 		background-color: #fff;
 		height: 1300rpx
 	}
 
-	.address-management .line {
+	.line {
 		width: 100%;
 		height: 3rpx;
+		image {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
 	}
-
-	.address-management .line image {
-		width: 100%;
-		height: 100%;
-		display: block;
-	}
-
 	.address-management .item {
 		background-color: #fff;
-		padding: 0 30rpx;
-		margin-bottom: 12rpx;
+		padding: 0 20rpx;
+		margin-bottom: 20rpx;
 	}
 
 	.address-management .item .address {
-		padding: 30rpx 0;
+		padding: 35rpx 0;
 		border-bottom: 1rpx solid #eee;
 		font-size: 28rpx;
 		color: #282828;
@@ -432,11 +430,11 @@
 	}
 
 	.address-management .item .operation .iconfont.icon-shanchu {
-		margin-left: 40rpx;
+		margin-left: 35rpx;
 		font-size: 38rpx;
 	}
 
-	.address-management .footer {
+	 .footer {
 		position: fixed;
 		width: 100%;
 		background-color: #fff;
@@ -446,7 +444,7 @@
 		box-sizing: border-box;
 	}
 
-	.address-management .footer .addressBnt {
+    .footer .addressBnt {
 		width: 330rpx;
 		height: 76rpx;
 		border-radius: 50rpx;
@@ -456,18 +454,24 @@
 		color: #fff;
 	}
 
-	.address-management .footer .addressBnt.on {
+	 .footer .addressBnt.on {
 		width: 690rpx;
 		margin: 0 auto;
 	}
 
-	.address-management .footer .addressBnt .iconfont {
+	 .footer .addressBnt .iconfont {
 		font-size: 35rpx;
 		margin-right: 8rpx;
 		vertical-align: -1rpx;
 	}
 
-	.address-management .footer .addressBnt.wxbnt {
+	 .footer .addressBnt.wxbnt {
 		background-color: #fe960f;
+	}
+	.status_1{
+		display: flex;
+		width: 750rpx;
+		// background-color: #E93323;
+		height: var(--status-bar-height);
 	}
 </style>

@@ -139,7 +139,7 @@
 	.Popup .bottom .item{width:50%;height:80rpx;background-color:#eeeeee;text-align:center;line-height:80rpx;font-size:24rpx;color:#666;margin-top:54rpx;}
 	.Popup .bottom .item.on{width: 100%}
 	.flex{display:flex;}
-	.Popup .bottom .item.grant{font-size:28rpx;color:#fff;font-weight:bold;background-color:#e93323;border-radius:0;padding:0;}
+	.Popup .bottom .item.grant{font-size:28rpx;color:#fff;font-weight:bold;background-color:$theme-color;border-radius:0;padding:0;}
 	.mask{position:fixed;top:0;right:0;left:0;bottom:0;background-color:rgba(0,0,0,0.65);z-index:310;}
 	
 </style>

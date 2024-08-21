@@ -3,13 +3,13 @@
 		<view class='logistics'>
 			<view class='header acea-row row-between row-top'>
 				<view class='pictrue'>
-					<image :src='product.productInfo.image'></image>
+					<image :src='product.productImg'></image>
 				</view>
 				<view class='text acea-row row-between'>
-					<view class='name line2'>{{product.productInfo.storeName}}</view>
+					<view class='name line2'>{{product.productName}}</view>
 					<view class='money'>
-						<view>￥{{product.truePrice}}</view>
-						<view>x{{product.cartNum}}</view>
+						<view>￥{{product.price}}</view>
+						<view>x{{product.payNum}}</view>
 					</view>
 				</view>
 			</view>
@@ -136,30 +136,11 @@
 			    let that=this;
 			    express(that.orderId).then(function(res){
 			      let result = res.data.express|| {};
-				  that.$set(that,'product',res.data.order.cartInfo[0] || {});
+				  that.$set(that,'product',res.data.order.info[0] || {});
 				  that.$set(that,'orderInfo',res.data.order);
 				  that.$set(that,'expressList',result.list || []);
 			    });
 			  },
-			  /**
-			* 获取我的推荐
-			*/
-		   // getGroomList(onloadH) {
-		   // 	this.loading = true
-		   // 	if (!this.goodScroll) return
-		   // 	if (onloadH) {
-		   // 		this.iSshowH = true
-		   // 	}
-		   // 	getGroomList(type, this.params).then(({
-		   // 		data
-		   // 	}) => {
-		   // 		this.iSshowH = false
-		   // 		this.loading = false
-		   // 		this.goodScroll = data.list.length >= this.params.limit
-		   // 		this.params.page++
-		   // 		this.tempArr = this.tempArr.concat(data.list)
-		   // 	})
-		   // }
 			  get_host_product: function () {
 				  	this.loading = true
 				  	if (!this.goodScroll) return
@@ -170,7 +151,6 @@
 							that.goodScroll = res.data.list.length >= that.params.limit
 							that.params.page++
 							that.hostProduct = that.hostProduct.concat(res.data.list)
-				//	that.$set(that,'hostProduct',res.data.list);
 			    });
 			  },
 		},
@@ -265,7 +245,7 @@
 		height: 40rpx;
 		text-align: center;
 		line-height: 40rpx;
-		border-radius: 3rpx;
+		border-radius: 20rpx;
 		border: 1rpx solid #999;
 	}
 
@@ -285,15 +265,15 @@
 	}
 
 	.logistics .logisticsCon .item .circular.on {
-		background-color: #e93323;
+		background-color: $theme-color;
 	}
 
 	.logistics .logisticsCon .item .text.on-font {
-		color: #e93323;
+		color: $theme-color;
 	}
 
 	.logistics .logisticsCon .item .text .data.on-font {
-		color: #e93323;
+		color: $theme-color;
 	}
 
 	.logistics .logisticsCon .item .text {

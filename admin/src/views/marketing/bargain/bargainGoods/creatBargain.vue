@@ -70,11 +70,11 @@
                 <el-input v-model="formValidate.title" maxlength="249" placeholder="请输入砍价活动名称" />
               </el-form-item>
             </el-col>
-            <el-col :span="24">
-              <el-form-item label="砍价活动简介：" prop="info">
-                <el-input v-model="formValidate.info"  maxlength="250" type="textarea" :rows="3" placeholder="请输入砍价活动简介" />
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="24">-->
+<!--              <el-form-item label="砍价活动简介：" prop="info">-->
+<!--                <el-input v-model="formValidate.info"  maxlength="250" type="textarea" :rows="3" placeholder="请输入砍价活动简介" />-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
             <el-col v-bind="grid2">
               <el-form-item label="单位：" prop="unitName">
                 <el-input v-model="formValidate.unitName" placeholder="请输入单位" class="selWidthd"/>
@@ -216,10 +216,7 @@
         <!-- 商品详情-->
         <div v-show="currentTab === 2">
           <el-form-item label="商品详情：">
-            <ueditor-from v-model="formValidate.content" :content="formValidate.content" />
-          </el-form-item>
-          <el-form-item label="商品规则：">
-            <ueditor-from v-model="formValidate.rule" :content="formValidate.rule" />
+            <Tinymce v-model="formValidate.content"></Tinymce> 
           </el-form-item>
         </div>
         <el-form-item style="margin-top:30px;">
@@ -251,6 +248,7 @@
             class="submission"
             size="small"
             @click="handleSubmit('formValidate')"
+            v-hasPermi="['admin:bargain:update']"
           >提交</el-button>
         </el-form-item>
       </el-form>
@@ -260,11 +258,14 @@
 </template>
 
 <script>
+  import Tinymce from '@/components/Tinymce/index'
   import {  productDetailApi, categoryApi } from '@/api/store'
   import { shippingTemplatesList } from '@/api/logistics'
   import { getSeckillList } from '@/libs/public'
   import {  bargainSaveApi, bargainUpdateApi, bargainInfoApi } from '@/api/marketing'
   import CreatTemplates from '@/views/systemSetting/logistics/shippingTemplates/creatTemplates'
+  import {formatDates} from "@/utils";
+  import {Debounce} from '@/utils/validate'
   const defaultObj = {
     image: '',
     images: '',
@@ -300,8 +301,7 @@
     startTime: '',
     stopTime: '',
     timeVal: [],
-    status: 0,
-    rule: ''
+    status: 0
   }
   const objTitle = {
     price: {
@@ -334,7 +334,7 @@
   }
   export default {
     name: "creatSeckill",
-    components: { CreatTemplates },
+    components: { CreatTemplates,Tinymce },
     data() {
       return {
         pickerOptions: {
@@ -454,8 +454,10 @@
         const tmp = {}
         const tmpTab = {}
         this.formValidate.attr.forEach((o, i) => {
-          tmp['value' + i] = { title: o.attrName }
-          tmpTab['value' + i] = ''
+          // tmp['value' + i] = { title: o.attrName }
+          // tmpTab['value' + i] = ''
+          tmp[o.attrName] = { title: o.attrName };
+          tmpTab[o.attrName] = '';
         })
         this.manyTabTit = tmp
         this.manyTabDate = tmpTab
@@ -548,11 +550,12 @@
             imagess: JSON.parse(res.sliderImage),
             title: res.storeName,
             info: res.storeInfo,
-            proName: res.storeName,
+            storeName: res.storeName,
             unitName: res.unitName,
             sort: res.sort,
             tempId: res.tempId,
             attr: res.attr,
+            attrValue: res.attrValue,
             selectRule: res.selectRule,
             content: res.content,
             specType: res.specType,
@@ -565,16 +568,19 @@
             status: 0,
             num : 1,
             bargainNum : 2,
-            peopleNum : 1,
-            rule : ''
+            peopleNum : 1
           }
           if(res.specType){
-            res.attrValues.forEach((row) => {
+            res.attrValue.forEach((row) => {
               row.quota = row.stock;
+              row.attrValue = JSON.parse(row.attrValue);
+              for (let attrValueKey in row.attrValue) {
+                row[attrValueKey] = row.attrValue[attrValueKey];
+              }
               row.image = this.$selfUtil.setDomain(row.image)
             });
-            this.ManyAttrValue = res.attrValues
-            this.multipleSelection = res.attrValues
+            this.ManyAttrValue = res.attrValue
+            this.multipleSelection = res.attrValue
           }else{
             res.attrValue.forEach((row) => {
               row.quota = row.stock;
@@ -582,7 +588,7 @@
             });
             this.ManyAttrValue = res.attrValue
             this.radio = res.attrValue[0]
-            this.formValidate.attr = []
+            // this.formValidate.attr = []
           }
           this.fullscreenLoading = false
         }).catch(res => {
@@ -596,13 +602,13 @@
             image: this.$selfUtil.setDomain(res.image),
             imagess: JSON.parse(res.sliderImage),
             title: res.title,
-            proName: res.title,
+            storeName: res.storeName,
             info: res.info,
             unitName: res.unitName,
             sort: res.sort,
             tempId: res.tempId,
             attr: res.attr,
-           selectRule: res.selectRule,
+            selectRule: res.selectRule,
             content: res.content,
             specType: res.specType,
             productId: res.productId,
@@ -610,19 +616,23 @@
             ficti: res.ficti,
             startTime: res.startTime || '',
             stopTime: res.stopTime || '',
-            timeVal: res.startTime && res.stopTime ? [res.startTime, res.stopTime] : [],
+            timeVal: res.startTime && res.stopTime ? [ formatDates(new Date(res.startTime), 'yyyy-MM-dd'), formatDates(new Date(res.stopTime), 'yyyy-MM-dd')] : [],
             status: res.status,
             num : res.num,
             bargainNum : res.bargainNum,
             peopleNum : res.peopleNum,
-            rule : res.rule
+            id: res.id
           }
           if(res.specType){
-            this.ManyAttrValue = res.attrValues;
+            this.ManyAttrValue = res.attrValue;
             this.$nextTick(() => {
               this.ManyAttrValue.forEach((item, index) => {
+                item.attrValue = JSON.parse(item.attrValue);
+                for (let attrValueKey in item.attrValue) {
+                  item[attrValueKey] = item.attrValue[attrValueKey];
+                }
                 item.image = this.$selfUtil.setDomain(item.image)
-                if (item.checked) {
+                if (item.id) {
                   this.radio = item
                 }
               })
@@ -632,7 +642,7 @@
             this.ManyAttrValue.forEach((item, index) => {
               item.image = this.$selfUtil.setDomain(item.image)
             })
-            this.formValidate.attr = [];
+            // this.formValidate.attr = [];
             this.radio = res.attrValue[0];
           }
 
@@ -661,13 +671,16 @@
         });
       },
       // 提交
-      handleSubmit(name) {
+      handleSubmit:Debounce(function(name) {
         if(!this.formValidate.specType){
-          this.formValidate.attr = []
+          // this.formValidate.attr = []
           this.formValidate.attrValue = this.ManyAttrValue
         }else{
+          this.radio.attrValue = JSON.stringify(this.radio.attrValue);
           this.formValidate.attrValue = [this.radio]
         }
+        this.formValidate.startTime = this.formValidate.timeVal[0];
+        this.formValidate.stopTime = this.formValidate.timeVal[1];
         this.formValidate.images = JSON.stringify(this.formValidate.imagess)
         this.$refs[name].validate((valid) => {
           if (valid) {
@@ -717,7 +730,7 @@
           }
         });
 
-      },
+      }),
       handleSubmitUp() {
         if (this.currentTab-- < 0) this.currentTab = 0;
       },
@@ -753,7 +766,7 @@
 
 <style scoped lang="scss">
   .inpBox{
-    /deep/.el-form-item__error {
+    ::v-deep.el-form-item__error {
       color: #ff4949;
       font-size: 12px;
       line-height: 20px;
@@ -765,14 +778,14 @@
     }
   }
   .labeltop{
-    /deep/.el-input-number--small{
+    ::v-deep.el-input-number--small{
       /*width: 172px !important;*/
       min-width: 132px !important;
     }
   }
 
   .proCoupon{
-    /deep/.el-form-item__content{
+    ::v-deep.el-form-item__content{
       margin-top: 5px;
     }
   }
@@ -785,30 +798,30 @@
     }
   }
   .noLeft{
-    /deep/.el-form-item__content{
+    ::v-deep.el-form-item__content{
       margin-left: 0 !important;
     }
   }
   .tabNumWidth{
-    /deep/.el-input-number--medium{
+    ::v-deep.el-input-number--medium{
       width: 121px !important;
     }
-    /deep/.el-input-number__increase{
+    ::v-deep.el-input-number__increase{
       width: 20px !important;
       font-size: 12px !important;
     }
-    /deep/.el-input-number__decrease{
+    ::v-deep.el-input-number__decrease{
       width: 20px !important;
       font-size: 12px !important;
     }
-    /deep/.el-input-number--medium .el-input__inner {
+    ::v-deep.el-input-number--medium .el-input__inner {
       padding-left: 25px !important;
       padding-right: 25px !important;
     }
-    /deep/ thead{
+    ::v-deep thead{
       line-height: normal !important;
     }
-    /deep/ .el-table .cell{
+    ::v-deep .el-table .cell{
       line-height: normal !important;
     }
   }
@@ -850,7 +863,7 @@
     top: -4px;
   }
   .labeltop{
-    /deep/.el-form-item__label{
+    ::v-deep.el-form-item__label{
       /*float: none !important;*/
       /*display: inline-block !important;*/
       /*margin-left: 120px !important;*/

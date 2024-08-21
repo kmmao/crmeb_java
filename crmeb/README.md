@@ -9,7 +9,6 @@
 3. Swagger 2.9.2
 4. Mybatis Plus 3.3.1
 
-
 # 部署
 1. 拿到jar包，上传到web目录下，（宝塔配置的域名指向的web目录下即可）
 2. 在 jar包同级目录下运行 `start.sh (运行命令为 ./start.sh )` 脚本即可启动项目
@@ -17,10 +16,11 @@
 4. 看到 `Completed 200 OK` 表示启动成功
 5. 默认启动 `20000` 端口号
 
+
+#
 # 注意事项
 1. web端口号不可以设置为`20000`
 2. 反向代理地址: `http://127.0.0.1:20000` 【外网域名指向这个地址】
-
 
 # 二次开发帮助文档
 ##注解参考：
@@ -49,3 +49,4 @@
 1. [易联云文档](http://doc2.10ss.net/337744 "易联云文档")
 2. [易联云JAVA SDK](http://doc2.10ss.net/337744 "易联云JAVA SDK gitee文档")
 3. [如何导入第三方JAVA SDK包](https://blog.csdn.net/weixin_46028577/article/details/106342938?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase "如何导入第三方JAVA SDK包")
+

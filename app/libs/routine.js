@@ -21,11 +21,12 @@ class Routine
 	/**
 	 * 获取用户信息
 	 */
-	getUserInfo(){
+	getUserProfile(){
 		let  that = this , code = this.getUserCode();
 		return new Promise( (resolve,reject) => {
-			uni.getUserInfo({
+			uni.getUserProfile({
 				lang: 'zh_CN',
+				desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
 				success(user) {
 					if(code) user.code = code;
 					resolve({userInfo:user,islogin:false});
@@ -115,20 +116,18 @@ class Routine
 			});
 		});
 	}
-	
+	/**
+	 * 小程序登录
+	 */
 	authUserInfo(code,data)
 	{
-		console.log('code:',code);
-		console.log('data:',data);
 		return new Promise((resolve, reject)=>{
 			login(code,data).then(res=>{
 				if(res.data.type==='login'){
-					// let time = res.data.expiresTime - Cache.time();
-					store.commit('UPDATE_USERINFO', res.data.user);
-					store.commit('LOGIN', {token:res.data.token});
-					store.commit('SETUID', res.data.user.uid);
-					// Cache.set(EXPIRES_TIME,res.data.expiresTime,time);
-					Cache.set(USER_INFO,res.data.user);
+					store.commit('LOGIN', {
+						token: res.data.token
+					});
+					store.commit("SETUID", res.data.uid);
 				}
 				return resolve(res);
 			}).catch(res=>{

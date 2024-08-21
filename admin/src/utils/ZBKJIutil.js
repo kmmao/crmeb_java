@@ -1,3 +1,13 @@
+// +----------------------------------------------------------------------
+// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016~2021 https://www.crmeb.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
+// +----------------------------------------------------------------------
+// | Author: CRMEB Team <admin@crmeb.com>
+// +----------------------------------------------------------------------
+
 import store from '@/store'
 
 /**
@@ -85,11 +95,11 @@ export function setDomain(url) {
   url = url ? url.toString() : '';
   // 正则替换存在的转义符
   url = url.replace(/\\/g,'');
-  url = url.replace('http://','https://');
+  url = window.location.protocol==='https:'? url.replace('http://','https://') : url;
   if(url.startsWith('src="')){
     url = url.replaceAll('src="','');
   }
-  if(url.startsWith('//img')){
+  if(url.startsWith('//img') && window.location.protocol==='https:'){
     url = url.replace('//img','https://img');
   }
   return url;
